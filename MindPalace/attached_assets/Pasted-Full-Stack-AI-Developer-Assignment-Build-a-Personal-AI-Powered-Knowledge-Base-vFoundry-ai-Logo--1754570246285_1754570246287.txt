@@ -1,0 +1,54 @@
+Full-Stack AI Developer Assignment
+Build a Personal AI-Powered Knowledge Base
+
+vFoundry.ai Logo
+🎯 Project Goal
+The objective is to design, build, and deploy a full-stack web application called "KnowledgeLink". This application will allow users to save web links, which are then automatically processed to generate summaries and vector embeddings. Users can then search through their saved links using natural language queries, effectively creating a personal, searchable knowledge base.
+
+✨ Core Features
+User Authentication: Secure sign-up and login using Google OAuth.
+Link Submission: A simple interface for users to submit a URL.
+Automated Content Processing: The backend automatically scrapes the content of the submitted URL.
+AI-Powered Summarization: Use the Gemini API to generate a concise summary of the link's content.
+Vector-Based Search: Generate vector embeddings for the content and enable natural language search to find relevant links.
+Dashboard: A clean UI to view, manage, and search all saved links.
+🛠️ Tech Stack
+You are required to use the following technologies. You have the freedom to choose libraries within this ecosystem.
+
+Frontend: Next.js & Tailwind CSS
+Backend: FastAPI (Python)
+Database: MongoDB (with Vector Search)
+Authentication: Google OAuth 2.0
+AI Services: Google Gemini API (it's free for basic use)
+Deployment: Railway (using a single Docker container)
+📋 Detailed Requirements
+Frontend (Next.js)
+Create a responsive, single-page application experience.
+Implement a "Sign in with Google" button. The application should be protected, meaning content is only visible to authenticated users.
+Design a dashboard that displays a list of the user's saved links. Each link should show its title, favicon, the AI-generated summary, and the original URL.
+Include a prominent input field to submit new URLs. Provide user feedback during submission (e.g., loading spinners, success/error messages).
+Implement a search bar that allows users to type a question or phrase. As the user types, it should query the backend and display matching links in real-time.
+Backend (FastAPI)
+Set up the necessary endpoints for the Google OAuth flow.
+Create a POST /api/links endpoint that accepts a URL from the authenticated user. This endpoint should orchestrate the following background tasks:
+Scrape the primary text content from the provided URL.
+Call the Gemini API to generate a summary of the text.
+Call the Gemini API to generate a vector embedding of the text.
+Save the URL, title, summary, and embedding to MongoDB.
+Create a GET /api/links endpoint to fetch all links for the currently authenticated user.
+Create a GET /api/search endpoint that takes a query parameter (e.g., ?q=...). This endpoint will:
+Generate a vector embedding for the search query using the Gemini API.
+Perform a vector similarity search in MongoDB against the saved links.
+Return the top matching links.
+Database (MongoDB)
+Use MongoDB Atlas for your database.
+Define a schema for your links collection. It should include fields like userId, url, title, summary, content_embedding, and createdAt.
+Configure a Vector Search Index on the content_embedding field in your collection to enable efficient similarity searches.
+Deployment (Docker & Railway)
+Write a single Dockerfile that creates a production-ready container.
+The Dockerfile should first build the Next.js frontend, then set up the Python environment for FastAPI, and finally, run the FastAPI server which will also serve the static Next.js files.
+Deploy your application to Railway. Configure all necessary environment variables (DATABASE_URL, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GEMINI_API_KEY, etc.) in the Railway dashboard.
+🚀 Submission & Deadline
+Timeline: You have 3 days from the time you receive this assignment.
+Working Video: Record a short (2-4 minute) video demonstrating the complete user flow: signing in, adding a new link, and searching for it using a natural language query.
+Deployed Link: A live, publicly accessible URL of your deployed application on Railway.
